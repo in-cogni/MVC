@@ -12,7 +12,7 @@ namespace ContosoUniversity.Data
 			context.Database.EnsureCreated();
 
 			// Look for any students.
-			if (context.Students.Any())
+			if (context.Enrollments.Any())
 			{
 				return;   // DB has been seeded
 			}
@@ -44,11 +44,11 @@ namespace ContosoUniversity.Data
 			new Course{CourseID=2021,Title="Composition",Credits=3},
 			new Course{CourseID=2042,Title="Literature",Credits=4}
 			};
-			foreach (Course c in courses)
-			{
-				context.Courses.Add(c);
-			}
-			context.SaveChanges();
+			//foreach (Course c in courses)
+			//{
+			//	context.Courses.Add(c);
+			//}
+			//context.SaveChanges();
 
 			var enrollments = new Enrollment[]
 			{

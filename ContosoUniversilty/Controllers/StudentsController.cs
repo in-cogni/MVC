@@ -7,13 +7,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ContosoUniversilty.Data;
 using ContosoUniversilty.Models;
-using System.Data.Entity;
 
 namespace ContosoUniversilty.Controllers
 {
     public class StudentsController : Controller
     {
-        //private readonly ContosoUniversiltyContext _context;
         private readonly UniversityContext _context;
 
         public StudentsController(UniversityContext context)
@@ -22,8 +20,29 @@ namespace ContosoUniversilty.Controllers
         }
 
         // GET: Students
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string sortOrder, string searchString)
         {
+            ViewData["NameSortParam"] = String.IsNullOrEmpty(sortOrder) ? "name-desc" : "";
+            ViewData["DateSortParam"] = sortOrder == "date" ? "date_desc" : "date";
+
+            ViewData["CurrentFilter"] = searchString;
+
+            IQueryable<Student> students = from s in _context.Students select s;
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                students = students.Where(s => s.LastName.Contains(searchString) || s.FirstName.Contains(searchString));
+            }
+
+            switch (sortOrder)
+            {
+                case "name_desc": students=  students.OrderByDescending(s => s.LastName); break;
+                case "date": students=students.OrderBy(s => s.EnrollmentDate); break;
+                case "date_desc":students= students.OrderByDescending(s => s.EnrollmentDate); break;
+                default: students = students.OrderBy(s => s.LastName); break;
+            }
+
+            return View(await students.AsNoTracking().ToListAsync());
             return View(await _context.Students.ToListAsync());
         }
 
@@ -42,7 +61,7 @@ namespace ContosoUniversilty.Controllers
                 .Include(s => s.Enrollments)
                 .ThenInclude(e => e.Course)
                 .AsNoTracking()
-                .FirstOrDefault(m => m.ID == id);
+                .FirstOrDefaultAsync(m => m.ID == id);
 
             if (student == null)
             {

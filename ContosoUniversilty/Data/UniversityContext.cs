@@ -13,7 +13,7 @@ namespace ContosoUniversilty.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Student>().ToTable("Students");
-            modelBuilder.Entity<Enrollment>().ToTable("Enrollment");
+            modelBuilder.Entity<Enrollment>().ToTable("Enrollments");
             modelBuilder.Entity<Course>().ToTable("Courses");
         }
     }
