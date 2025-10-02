@@ -1,17 +1,21 @@
 using ContosoUniversilty.Data;
+using ContosoUniversity.Data;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using Microsoft.SqlServer;
-
 
 var builder = WebApplication.CreateBuilder(args);
 
+//builder.Services.AddDbContext<ContosoUniversiltyContext>(options =>
+//    options.UseSqlServer(builder.Configuration.GetConnectionString("ContosoUniversiltyContext") ?? throw new InvalidOperationException("Connection string 'ContosoUniversiltyContext' not found.")));
+
+//builder.Services.AddDbContext<UniversityContext>
+//    (
+//    options => options.UseSqlServer(builder.Configuration.GetConnectionString("DatabaseConnection"))
+//    );
+
 builder.Services.AddDbContext<UniversityContext>
     (
-    options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))
+    options => options.UseSqlServer(builder.Configuration.GetConnectionString("DatabaseConnection"))
     );
 
 // Add services to the container.
@@ -26,6 +30,15 @@ if (!app.Environment.IsDevelopment())
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
+///////////////////////////////////////////////////
+
+IServiceScope scope = app.Services.CreateScope();
+IServiceProvider services = scope.ServiceProvider;
+
+UniversityContext context = services.GetRequiredService<UniversityContext>();
+DbInitializer.Initialize(context);
+
+///////////////////////////////////////////////////
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
