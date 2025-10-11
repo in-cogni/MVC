@@ -25,7 +25,7 @@ namespace ContosoUniversilty.Controllers
         {
             ViewData["CurrentSort"] = sortOrder;
             ViewData["NameSortParam"] = String.IsNullOrEmpty(sortOrder) ? "name-desc" : "";
-            ViewData["DateSortParam"] = sortOrder == "date" ? "date_desc" : "date";
+            ViewData["DateSortParam"] = sortOrder == "date" ? "date-desc" : "date";
 
             if(searchString != null)
             {
@@ -47,9 +47,9 @@ namespace ContosoUniversilty.Controllers
 
             switch (sortOrder)
             {
-                case "name_desc": students=  students.OrderByDescending(s => s.LastName); break;
+                case "name-desc": students=  students.OrderByDescending(s => s.LastName); break;
                 case "date": students=students.OrderBy(s => s.EnrollmentDate); break;
-                case "date_desc":students= students.OrderByDescending(s => s.EnrollmentDate); break;
+                case "date-desc":students= students.OrderByDescending(s => s.EnrollmentDate); break;
                 default: students = students.OrderBy(s => s.LastName); break;
             }
 
