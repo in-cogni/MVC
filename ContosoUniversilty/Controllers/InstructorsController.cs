@@ -111,7 +111,11 @@ namespace ContosoUniversilty.Controllers
                 return NotFound();
             }
 
-            var instructor = await _context.Instructors.FindAsync(id);
+            //var instructor = await _context.Instructors.FindAsync(id);
+            Instructor instructor = await _context.Instructors
+                .Include(i=>i.OfficeAssignment)
+                .AsNoTracking()
+                .FirstOrDefaultAsync(m=>m.ID ==id);
             if (instructor == null)
             {
                 return NotFound();
@@ -122,7 +126,33 @@ namespace ContosoUniversilty.Controllers
         // POST: Instructors/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
+
+        [HttpPost, ActionName("Edit")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EditPost(int? id)
+        {
+            if(id == null) return NotFound();
+
+            Instructor instructor = await _context.Instructors
+                .Include(i=>i.OfficeAssignment)
+                .FirstOrDefaultAsync(m=>m.ID ==id);
+
+            if(await TryUpdateModelAsync<Instructor>(instructor, "", i=>i.FirstName, i=>i.LastName, i => i.HireDate, i => i.OfficeAssignment))
+            {
+                if(string.IsNullOrWhiteSpace(instructor.OfficeAssignment?.Location))instructor.OfficeAssignment = null;
+                try
+                {
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateException ex)
+                {
+                    ModelState.AddModelError("Error", "Unable to save changes");
+                }
+                return RedirectToAction(nameof(Index));
+            }
+            return View(instructor);
+        }
+        /*[HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("ID,LastName,FirstName,HireDate")] Instructor instructor)
         {
@@ -152,7 +182,7 @@ namespace ContosoUniversilty.Controllers
                 return RedirectToAction(nameof(Index));
             }
             return View(instructor);
-        }
+        }*/
 
         // GET: Instructors/Delete/5
         public async Task<IActionResult> Delete(int? id)
