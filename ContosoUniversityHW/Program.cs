@@ -28,7 +28,6 @@ using (var scope = app.Services.CreateScope())
 	try
 	{
 		var context = services.GetRequiredService<UniversityContext>();
-
 		context.Database.Migrate();
 
 		DbInitializer.Initialize(context);
@@ -36,7 +35,8 @@ using (var scope = app.Services.CreateScope())
 	catch (Exception ex)
 	{
 		var logger = services.GetRequiredService<ILogger<Program>>();
-		logger.LogError(ex, "An error occurred while migrating the database.");
+		logger.LogError(ex, "DB INIT ERROR: {Message}\n{StackTrace}", ex.Message, ex.StackTrace);
+		throw; 
 	}
 }
 
