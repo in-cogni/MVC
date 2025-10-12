@@ -11,10 +11,9 @@ namespace ContosoUniversityHW.Data
 		{
 			context.Database.EnsureCreated();
 
-			// Look for any students.
 			if (context.Instructors.Any())
 			{
-				return;   // DB has been seeded
+				return;
 			}
 
 			var students = new Student[]
@@ -37,15 +36,15 @@ namespace ContosoUniversityHW.Data
 			var instructors = new Instructor[]
 			{
 				new Instructor { FirstName = "Kim",     LastName = "Abercrombie",
-					HireDate = DateTime.Parse("1995-03-11") },
+					HireDate = DateTime.SpecifyKind(DateTime.Parse("1995-03-11"), DateTimeKind.Utc) },
 				new Instructor { FirstName = "Fadi",    LastName = "Fakhouri",
-					HireDate = DateTime.Parse("2002-07-06") },
+					HireDate = DateTime.SpecifyKind(DateTime.Parse("2002-07-06"), DateTimeKind.Utc) },
 				new Instructor { FirstName = "Roger",   LastName = "Harui",
-					HireDate = DateTime.Parse("1998-07-01") },
+					HireDate = DateTime.SpecifyKind(DateTime.Parse("1998-07-01"), DateTimeKind.Utc) },
 				new Instructor { FirstName = "Candace", LastName = "Kapoor",
-					HireDate = DateTime.Parse("2001-01-15") },
+					HireDate = DateTime.SpecifyKind(DateTime.Parse("2001-01-15"), DateTimeKind.Utc) },
 				new Instructor { FirstName = "Roger",   LastName = "Zheng",
-					HireDate = DateTime.Parse("2004-02-12") }
+					HireDate = DateTime.SpecifyKind(DateTime.Parse("2004-02-12"), DateTimeKind.Utc) }
 			};
 
 			foreach (Instructor i in instructors)
@@ -57,16 +56,16 @@ namespace ContosoUniversityHW.Data
 			var departments = new Department[]
 			{
 				new Department { Name = "English",     Budget = 350000,
-					StartDate = DateTime.Parse("2007-09-01"),
+					StartDate = DateTime.SpecifyKind(DateTime.Parse("2007-09-01"), DateTimeKind.Utc),
 					InstructorID  = instructors.Single( i => i.LastName == "Abercrombie").ID },
 				new Department { Name = "Mathematics", Budget = 100000,
-					StartDate = DateTime.Parse("2007-09-01"),
+					StartDate = DateTime.SpecifyKind(DateTime.Parse("2007-09-01"), DateTimeKind.Utc),
 					InstructorID  = instructors.Single( i => i.LastName == "Fakhouri").ID },
 				new Department { Name = "Engineering", Budget = 350000,
-					StartDate = DateTime.Parse("2007-09-01"),
+					StartDate = DateTime.SpecifyKind(DateTime.Parse("2007-09-01"), DateTimeKind.Utc),
 					InstructorID  = instructors.Single( i => i.LastName == "Harui").ID },
 				new Department { Name = "Economics",   Budget = 100000,
-					StartDate = DateTime.Parse("2007-09-01"),
+					StartDate = DateTime.SpecifyKind(DateTime.Parse("2007-09-01"), DateTimeKind.Utc),
 					InstructorID  = instructors.Single( i => i.LastName == "Kapoor").ID }
 			};
 
@@ -75,17 +74,6 @@ namespace ContosoUniversityHW.Data
 				context.Departments.Add(d);
 			}
 			context.SaveChanges();
-
-			//var courses = new Course[]
-			//{
-			//new Course{CourseID=1050,Title="Chemistry",Credits=3},
-			//new Course{CourseID=4022,Title="Microeconomics",Credits=3},
-			//new Course{CourseID=4041,Title="Macroeconomics",Credits=3},
-			//new Course{CourseID=1045,Title="Calculus",Credits=4},
-			//new Course{CourseID=3141,Title="Trigonometry",Credits=4},
-			//new Course{CourseID=2021,Title="Composition",Credits=3},
-			//new Course{CourseID=2042,Title="Literature",Credits=4}
-			//};
 
 			var courses = new Course[]
 			{
@@ -137,50 +125,6 @@ namespace ContosoUniversityHW.Data
 				context.Enrollments.Add(e);
 			}
 			context.SaveChanges();
-
-			//////////////////////////////////////////////////////////////////////////////////
-
-			//var instructors = new Instructor[]
-			//{
-			//	new Instructor { FirstName = "Kim",     LastName = "Abercrombie",
-			//		HireDate = DateTime.Parse("1995-03-11") },
-			//	new Instructor { FirstName = "Fadi",    LastName = "Fakhouri",
-			//		HireDate = DateTime.Parse("2002-07-06") },
-			//	new Instructor { FirstName = "Roger",   LastName = "Harui",
-			//		HireDate = DateTime.Parse("1998-07-01") },
-			//	new Instructor { FirstName = "Candace", LastName = "Kapoor",
-			//		HireDate = DateTime.Parse("2001-01-15") },
-			//	new Instructor { FirstName = "Roger",   LastName = "Zheng",
-			//		HireDate = DateTime.Parse("2004-02-12") }
-			//};
-
-			//foreach (Instructor i in instructors)
-			//{
-			//	context.Instructors.Add(i);
-			//}
-			//context.SaveChanges();
-
-			//var departments = new Department[]
-			//{
-			//	new Department { Name = "English",     Budget = 350000,
-			//		StartDate = DateTime.Parse("2007-09-01"),
-			//		InstructorID  = instructors.Single( i => i.LastName == "Abercrombie").ID },
-			//	new Department { Name = "Mathematics", Budget = 100000,
-			//		StartDate = DateTime.Parse("2007-09-01"),
-			//		InstructorID  = instructors.Single( i => i.LastName == "Fakhouri").ID },
-			//	new Department { Name = "Engineering", Budget = 350000,
-			//		StartDate = DateTime.Parse("2007-09-01"),
-			//		InstructorID  = instructors.Single( i => i.LastName == "Harui").ID },
-			//	new Department { Name = "Economics",   Budget = 100000,
-			//		StartDate = DateTime.Parse("2007-09-01"),
-			//		InstructorID  = instructors.Single( i => i.LastName == "Kapoor").ID }
-			//};
-
-			//foreach (Department d in departments)
-			//{
-			//	context.Departments.Add(d);
-			//}
-			//context.SaveChanges();
 
 			var officeAssignments = new OfficeAssignment[]
 			{
