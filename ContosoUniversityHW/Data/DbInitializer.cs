@@ -2,6 +2,7 @@
 using ContosoUniversityHW.Data;
 using System;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
 
 namespace ContosoUniversityHW.Data
 {
@@ -10,6 +11,15 @@ namespace ContosoUniversityHW.Data
 		public static void Initialize(UniversityContext context)
 		{
 			context.Database.EnsureCreated();
+
+			context.Database.ExecuteSqlRaw("DELETE FROM \"CourseAssignments\"");
+			context.Database.ExecuteSqlRaw("DELETE FROM \"Enrollments\"");
+			context.Database.ExecuteSqlRaw("DELETE FROM \"OfficeAssignments\"");
+			context.Database.ExecuteSqlRaw("DELETE FROM \"Courses\"");
+			context.Database.ExecuteSqlRaw("DELETE FROM \"Departments\"");
+			context.Database.ExecuteSqlRaw("DELETE FROM \"Instructors\"");
+			context.Database.ExecuteSqlRaw("DELETE FROM \"Students\"");
+			context.Database.ExecuteSqlRaw("DELETE FROM \"__EFMigrationsHistory\"");
 
 			//if (context.Instructors.Any())
 			//{
