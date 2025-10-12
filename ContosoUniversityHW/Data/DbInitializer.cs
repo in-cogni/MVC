@@ -12,6 +12,8 @@ namespace ContosoUniversityHW.Data
 		{
 			context.Database.EnsureCreated();
 
+			context.Database.ExecuteSqlRaw("SET session_replication_role = 'replica';");
+
 			context.Database.ExecuteSqlRaw("DELETE FROM \"CourseAssignments\"");
 			context.Database.ExecuteSqlRaw("DELETE FROM \"Enrollments\"");
 			context.Database.ExecuteSqlRaw("DELETE FROM \"OfficeAssignments\"");
@@ -196,6 +198,8 @@ namespace ContosoUniversityHW.Data
 				context.CourseAssignments.Add(ci);
 			}
 			context.SaveChanges();
+
+			context.Database.ExecuteSqlRaw("SET session_replication_role = 'origin';");
 		}
 	}
 }
