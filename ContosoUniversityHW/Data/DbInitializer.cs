@@ -11,10 +11,10 @@ namespace ContosoUniversityHW.Data
 		{
 			context.Database.EnsureCreated();
 
-			if (context.Instructors.Any())
-			{
-				return;
-			}
+			//if (context.Instructors.Any())
+			//{
+			//	return;
+			//}
 
 			var students = new Student[]
 			{
