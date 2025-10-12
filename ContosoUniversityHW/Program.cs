@@ -22,6 +22,21 @@ builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
 
+using (var scope1 = app.Services.CreateScope())
+{
+	var services1 = scope1.ServiceProvider;
+	try
+	{
+		var context1 = services1.GetRequiredService<UniversityContext>();
+		context1.Database.Migrate();
+	}
+	catch (Exception ex)
+	{
+		var logger = services1.GetRequiredService<ILogger<Program>>();
+		logger.LogError(ex, "An error occurred while migrating the database.");
+	}
+}
+
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
