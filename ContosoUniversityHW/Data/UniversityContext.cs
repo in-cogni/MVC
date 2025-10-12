@@ -27,6 +27,17 @@ namespace ContosoUniversityHW.Data
 			modelBuilder.Entity<OfficeAssignment>().ToTable("OfficeAssignments");
 			modelBuilder.Entity<CourseAssignment>().ToTable("CourseAssignments");
 			modelBuilder.Entity<CourseAssignment>().HasKey(c => new { c.CourseID, c.InstructorID });
+
+			modelBuilder.Entity<OfficeAssignment>()
+		.HasOne(o => o.Instructor)
+		.WithOne(i => i.OfficeAssignment)
+		.HasForeignKey<OfficeAssignment>(o => o.InstructorID);
+
+			modelBuilder.Entity<Department>()
+				.HasOne(d => d.Administrator)
+				.WithMany()
+				.HasForeignKey(d => d.InstructorID)
+				.OnDelete(DeleteBehavior.Restrict);
 		}
 	}
 }
