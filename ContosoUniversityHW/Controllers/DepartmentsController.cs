@@ -22,7 +22,7 @@ namespace ContosoUniversityHW.Views
         // GET: Departments
         public async Task<IActionResult> Index()
         {
-            var universityContext = _context.Departments.Include(d => d.Administator);
+            var universityContext = _context.Departments.Include(d => d.Administrator);
             return View(await universityContext.ToListAsync());
         }
 
@@ -35,7 +35,7 @@ namespace ContosoUniversityHW.Views
             }
 
             var department = await _context.Departments
-                .Include(d => d.Administator)
+                .Include(d => d.Administrator)
                 .FirstOrDefaultAsync(m => m.DepartmentID == id);
             if (department == null)
             {
@@ -131,7 +131,7 @@ namespace ContosoUniversityHW.Views
             }
 
             var department = await _context.Departments
-                .Include(d => d.Administator)
+                .Include(d => d.Administrator)
                 .FirstOrDefaultAsync(m => m.DepartmentID == id);
             if (department == null)
             {
