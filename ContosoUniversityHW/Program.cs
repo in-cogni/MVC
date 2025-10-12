@@ -1,5 +1,6 @@
 using ContosoUniversityHW.Data;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -14,7 +15,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddDbContext<UniversityContext>
 	(
-	options => options.UseNpgsql(builder.Configuration.GetConnectionString("DatabaseConnection1"))
+	options => options.UseNpgsql(builder.Configuration.GetConnectionString("DatabaseConnection1")).ConfigureWarnings(warnings =>
+			   warnings.Ignore(RelationalEventId.PendingModelChangesWarning))
 	);
 
 // Add services to the container.
