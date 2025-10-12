@@ -22,7 +22,7 @@ builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
 
-/*using (var scope1 = app.Services.CreateScope())
+using (var scope1 = app.Services.CreateScope())
 {
 	var services1 = scope1.ServiceProvider;
 	try
@@ -35,7 +35,7 @@ var app = builder.Build();
 		var logger = services1.GetRequiredService<ILogger<Program>>();
 		logger.LogError(ex, "An error occurred while migrating the database.");
 	}
-}*/
+}
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
@@ -46,11 +46,11 @@ if (!app.Environment.IsDevelopment())
 }
 ///////////////////////////////////////////////////
 
-//IServiceScope scope = app.Services.CreateScope();
-//IServiceProvider services = scope.ServiceProvider;
+IServiceScope scope = app.Services.CreateScope();
+IServiceProvider services = scope.ServiceProvider;
 
-//UniversityContext context = services.GetRequiredService<UniversityContext>();
-//DbInitializer.Initialize(context);
+UniversityContext context = services.GetRequiredService<UniversityContext>();
+DbInitializer.Initialize(context);
 
 ///////////////////////////////////////////////////
 
