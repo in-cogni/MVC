@@ -46,11 +46,11 @@ if (!app.Environment.IsDevelopment())
 }
 ///////////////////////////////////////////////////
 
-IServiceScope scope = app.Services.CreateScope();
-IServiceProvider services = scope.ServiceProvider;
+//IServiceScope scope = app.Services.CreateScope();
+//IServiceProvider services = scope.ServiceProvider;
 
-UniversityContext context = services.GetRequiredService<UniversityContext>();
-DbInitializer.Initialize(context);
+//UniversityContext context = services.GetRequiredService<UniversityContext>();
+//DbInitializer.Initialize(context);
 
 ///////////////////////////////////////////////////
 
