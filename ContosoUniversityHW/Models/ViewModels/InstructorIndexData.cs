@@ -1,5 +1,4 @@
 ﻿using ContosoUniversityHW.Models;
-using ContosoUniversityHW.Models;
 
 namespace ContosoUniversityHW.Models.ViewModels
 {
