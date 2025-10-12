@@ -30,7 +30,7 @@ using (var scope = app.Services.CreateScope())
 	try
 	{
 		var context = services.GetRequiredService<UniversityContext>();
-		context.Database.Migrate();
+		context.Database.EnsureCreated();
 
 		DbInitializer.Initialize(context);
 	}
