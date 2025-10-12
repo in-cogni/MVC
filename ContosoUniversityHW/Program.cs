@@ -22,17 +22,19 @@ builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
 
-using (var scope1 = app.Services.CreateScope())
+using (var scope = app.Services.CreateScope())
 {
-	var services1 = scope1.ServiceProvider;
+	var services = scope.ServiceProvider;
 	try
 	{
-		var context1 = services1.GetRequiredService<UniversityContext>();
-		context1.Database.Migrate();
+		var context = services.GetRequiredService<UniversityContext>();
+		context.Database.Migrate();
+
+		DbInitializer.Initialize(context);
 	}
 	catch (Exception ex)
 	{
-		var logger = services1.GetRequiredService<ILogger<Program>>();
+		var logger = services.GetRequiredService<ILogger<Program>>();
 		logger.LogError(ex, "An error occurred while migrating the database.");
 	}
 }
