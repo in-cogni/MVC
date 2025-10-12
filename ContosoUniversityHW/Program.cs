@@ -14,7 +14,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddDbContext<UniversityContext>
 	(
-	options => options.UseSqlServer(builder.Configuration.GetConnectionString("DatabaseConnection1"))
+	options => options.UseNpgsql(builder.Configuration.GetConnectionString("DatabaseConnection1"))
 	);
 
 // Add services to the container.
