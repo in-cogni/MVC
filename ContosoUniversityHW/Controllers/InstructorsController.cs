@@ -114,6 +114,7 @@ namespace ContosoUniversityHW.Controllers
 			//var instructor = await _context.Instructors.FindAsync(id);
 			Instructor instructor = await _context.Instructors
 				.Include(i => i.OfficeAssignment)
+				.Include(i => i.CourseAssignments).ThenInclude(i => i.Course)
 				.AsNoTracking()
 				.FirstOrDefaultAsync(m => m.ID == id);
 			if (instructor == null)
