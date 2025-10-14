@@ -100,7 +100,26 @@ namespace ContosoUniversilty.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+            PopulateAssignedCourseData(instructor);
             return View(instructor);
+        }
+
+        void PopulateAssignedCourseData(Instructor instructor)
+        {
+            DbSet<Course> allCourses = _context.Courses;
+            HashSet<int> instructorCourses = 
+                new HashSet<int>(instructor.CourseAssignments.Select(c=>c.CourseID));
+            List<AssignedCourseData> viewModel = new List<AssignedCourseData>();
+            foreach(Course course in allCourses)
+            {
+                viewModel.Add(new AssignedCourseData
+                {
+                    CourseID = course.CourseID,
+                    Title = course.Title,
+                    Assigned = instructorCourses.Contains(course.CourseID)
+                });
+            }
+            ViewData["Courses"] = viewModel;
         }
 
         // GET: Instructors/Edit/5
@@ -114,8 +133,11 @@ namespace ContosoUniversilty.Controllers
             //var instructor = await _context.Instructors.FindAsync(id);
             Instructor instructor = await _context.Instructors
                 .Include(i=>i.OfficeAssignment)
+                .Include(i=>i.CourseAssignments)
+                    .ThenInclude(i=>i.Course)
                 .AsNoTracking()
                 .FirstOrDefaultAsync(m=>m.ID ==id);
+            PopulateAssignedCourseData(instructor);
             if (instructor == null)
             {
                 return NotFound();
@@ -123,23 +145,58 @@ namespace ContosoUniversilty.Controllers
             return View(instructor);
         }
 
-        // POST: Instructors/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+		// POST: Instructors/Edit/5
+		// To protect from overposting attacks, enable the specific properties you want to bind to.
+		// For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+		void UpdateInstructorCourses(string[] selectedCourses, Instructor instructor)
+		{
+			if (selectedCourses == null)
+			{
+				instructor.CourseAssignments = new List<CourseAssignment>();
+				return;
+			}
+			HashSet<string> selectedCoursesHS = new HashSet<string>(selectedCourses);
+			HashSet<int> instructorCourses = new HashSet<int>(instructor.CourseAssignments.Select(c => c.CourseID));
+			foreach (Course course in _context.Courses)
+			{
+				if (selectedCoursesHS.Contains(course.CourseID.ToString()))
+				{
+					if (!instructorCourses.Contains(course.CourseID))
+					{
+						instructor.CourseAssignments.Add(new CourseAssignment
+						{
+							InstructorID = instructor.ID,
+							CourseID = course.CourseID
+						});
+					}
+				}
+				else
+				{
+					if (instructorCourses.Contains(course.CourseID))
+					{
+						CourseAssignment erased = instructor.CourseAssignments.FirstOrDefault(i => i.CourseID == course.CourseID);
+						_context.Remove(erased);
+					}
+				}
+			}
+		}
 
-        [HttpPost, ActionName("Edit")]
+		[HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> EditPost(int? id)
+        public async Task<IActionResult> Edit(int? id, string[] selectedCourses)
         {
             if(id == null) return NotFound();
 
             Instructor instructor = await _context.Instructors
                 .Include(i=>i.OfficeAssignment)
+                .Include(i=>i.CourseAssignments)
+                    .ThenInclude (i=>i.Course)
                 .FirstOrDefaultAsync(m=>m.ID ==id);
 
             if(await TryUpdateModelAsync<Instructor>(instructor, "", i=>i.FirstName, i=>i.LastName, i => i.HireDate, i => i.OfficeAssignment))
             {
                 if(string.IsNullOrWhiteSpace(instructor.OfficeAssignment?.Location))instructor.OfficeAssignment = null;
+                UpdateInstructorCourses(selectedCourses, instructor);
                 try
                 {
                     await _context.SaveChangesAsync();
@@ -150,8 +207,11 @@ namespace ContosoUniversilty.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+            UpdateInstructorCourses (selectedCourses, instructor);
+            PopulateAssignedCourseData(instructor);
             return View(instructor);
         }
+        
         /*[HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("ID,LastName,FirstName,HireDate")] Instructor instructor)
