@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.DependencyInjection;
 
-var builder = WebApplication.CreateBuilder(args);
+WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
 //builder.Services.AddDbContext<ContosoUniversiltyContext>(options =>
 //    options.UseSqlServer(builder.Configuration.GetConnectionString("ContosoUniversiltyContext") ?? throw new InvalidOperationException("Connection string 'ContosoUniversiltyContext' not found.")));
@@ -22,21 +22,21 @@ builder.Services.AddDbContext<UniversityContext>
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
-var app = builder.Build();
+WebApplication app = builder.Build();
 
-using (var scope = app.Services.CreateScope())
+using (IServiceScope scope = app.Services.CreateScope())
 {
-	var services = scope.ServiceProvider;
+	IServiceProvider services = scope.ServiceProvider;
 	try
 	{
-		var context = services.GetRequiredService<UniversityContext>();
+		UniversityContext context = services.GetRequiredService<UniversityContext>();
 		context.Database.EnsureCreated();
 
 		DbInitializer.Initialize(context);
 	}
 	catch (Exception ex)
 	{
-		var logger = services.GetRequiredService<ILogger<Program>>();
+		ILogger logger = services.GetRequiredService<ILogger<Program>>();
 		logger.LogError(ex, "DB INIT ERROR: {Message}\n{StackTrace}", ex.Message, ex.StackTrace);
 		throw; 
 	}
