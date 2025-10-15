@@ -14,6 +14,8 @@ namespace Academy.Data
 		public DbSet<Instructor> Instructors { get; set; }
 		public DbSet<OfficeAssignment> OfficeAssignments { get; set; }
 		public DbSet<CourseAssignment> CourseAssignments { get; set; }
+		public DbSet<Group> Groups { get; set; }
+		public DbSet<Direction> Directions { get; set; }
 
 
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -26,6 +28,9 @@ namespace Academy.Data
 			modelBuilder.Entity<Instructor>().ToTable("Instructors");
 			modelBuilder.Entity<OfficeAssignment>().ToTable("OfficeAssignments");
 			modelBuilder.Entity<CourseAssignment>().ToTable("CourseAssignments");
+			modelBuilder.Entity<Group>().ToTable("Groups");
+			modelBuilder.Entity<Direction>().ToTable("Directions");
+
 			modelBuilder.Entity<CourseAssignment>().HasKey(c => new { c.CourseID, c.InstructorID });
 
 			modelBuilder.Entity<OfficeAssignment>()
@@ -38,6 +43,11 @@ namespace Academy.Data
 				.WithMany()
 				.HasForeignKey(d => d.InstructorID)
 				.OnDelete(DeleteBehavior.Restrict);
+
+			modelBuilder.Entity<Group>()
+				.HasOne(g => g.Direction)
+				.WithMany(d => d.Groups)
+				.HasForeignKey(g => g.DirectionId);
 		}
 	}
 }
