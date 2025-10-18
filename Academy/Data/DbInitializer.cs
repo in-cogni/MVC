@@ -19,15 +19,15 @@ namespace Academy.Data
 			var instructors = new Instructor[]
 			{
 				new Instructor { FirstName = "Kim",     LastName = "Abercrombie",
-					HireDate = DateTime.Parse("1995-03-11") },
+					HireDate = DateTime.SpecifyKind(DateTime.Parse("1995-03-11"), DateTimeKind.Utc) },
 				new Instructor { FirstName = "Fadi",    LastName = "Fakhouri",
-					HireDate = DateTime.Parse("2002-07-06") },
+					HireDate = DateTime.SpecifyKind(DateTime.Parse("2002-07-06"), DateTimeKind.Utc) },
 				new Instructor { FirstName = "Roger",   LastName = "Harui",
-					HireDate = DateTime.Parse("1998-07-01") },
+					HireDate = DateTime.SpecifyKind(DateTime.Parse("1998-07-01"), DateTimeKind.Utc) },
 				new Instructor { FirstName = "Candace", LastName = "Kapoor",
-					HireDate = DateTime.Parse("2001-01-15") },
+					HireDate = DateTime.SpecifyKind(DateTime.Parse("2001-01-15"), DateTimeKind.Utc) },
 				new Instructor { FirstName = "Roger",   LastName = "Zheng",
-					HireDate = DateTime.Parse("2004-02-12") }
+					HireDate = DateTime.SpecifyKind(DateTime.Parse("2004-02-12"), DateTimeKind.Utc) }
 			};
 
 			foreach (Instructor i in instructors)
@@ -39,16 +39,16 @@ namespace Academy.Data
 			var departments = new Department[]
 			{
 				new Department { Name = "English",     Budget = 350000,
-					StartDate = DateTime.Parse("2007-09-01"),
+					StartDate = DateTime.SpecifyKind(DateTime.Parse("2007-09-01"), DateTimeKind.Utc),
 					InstructorID  = instructors.Single( i => i.LastName == "Abercrombie").ID },
 				new Department { Name = "Mathematics", Budget = 100000,
-					StartDate = DateTime.Parse("2007-09-01"),
+					StartDate = DateTime.SpecifyKind(DateTime.Parse("2007-09-01"), DateTimeKind.Utc),
 					InstructorID  = instructors.Single( i => i.LastName == "Fakhouri").ID },
 				new Department { Name = "Engineering", Budget = 350000,
-					StartDate = DateTime.Parse("2007-09-01"),
+					StartDate = DateTime.SpecifyKind(DateTime.Parse("2007-09-01"), DateTimeKind.Utc),
 					InstructorID  = instructors.Single( i => i.LastName == "Harui").ID },
 				new Department { Name = "Economics",   Budget = 100000,
-					StartDate = DateTime.Parse("2007-09-01"),
+					StartDate = DateTime.SpecifyKind(DateTime.Parse("2007-09-01"), DateTimeKind.Utc),
 					InstructorID  = instructors.Single( i => i.LastName == "Kapoor").ID }
 			};
 
@@ -60,14 +60,14 @@ namespace Academy.Data
 
 			var students = new Student[]
 			{
-				new Student{FirstName="Carson",LastName="Alexander",EnrollmentDate=DateTime.Parse("2005-09-01"), PhotoPath="student1.jpg"},
-				new Student{FirstName="Meredith",LastName="Alonso",EnrollmentDate=DateTime.Parse("2002-09-01"), PhotoPath="student2.jpg"},
-				new Student{FirstName="Arturo",LastName="Anand",EnrollmentDate=DateTime.Parse("2003-09-01"), PhotoPath="student3.jpg"},
-				new Student{FirstName="Gytis",LastName="Barzdukas",EnrollmentDate=DateTime.Parse("2002-09-01"), PhotoPath="student4.jpg"},
-				new Student{FirstName="Yan",LastName="Li",EnrollmentDate=DateTime.Parse("2002-09-01"), PhotoPath="student5.jpg"},
-				new Student{FirstName="Peggy",LastName="Justice",EnrollmentDate=DateTime.Parse("2001-09-01"), PhotoPath="student6.jpg"},
-				new Student{FirstName="Laura",LastName="Norman",EnrollmentDate=DateTime.Parse("2003-09-01"), PhotoPath="student7.jpg"},
-				new Student{FirstName="Nino",LastName="Olivetto",EnrollmentDate=DateTime.Parse("2005-09-01"), PhotoPath="student8.jpg"}
+				new Student{FirstName="Carson",LastName="Alexander",EnrollmentDate=DateTime.SpecifyKind(DateTime.Parse("2005-09-01"), DateTimeKind.Utc), PhotoPath="student1.jpg"},
+				new Student{FirstName="Meredith",LastName="Alonso",EnrollmentDate=DateTime.SpecifyKind(DateTime.Parse("2002-09-01"), DateTimeKind.Utc), PhotoPath="student2.jpg"},
+				new Student{FirstName="Arturo",LastName="Anand",EnrollmentDate=DateTime.SpecifyKind(DateTime.Parse("2003-09-01"), DateTimeKind.Utc), PhotoPath="student3.jpg"},
+				new Student{FirstName="Gytis",LastName="Barzdukas",EnrollmentDate=DateTime.SpecifyKind(DateTime.Parse("2002-09-01"), DateTimeKind.Utc), PhotoPath="student4.jpg"},
+				new Student{FirstName="Yan",LastName="Li",EnrollmentDate=DateTime.SpecifyKind(DateTime.Parse("2002-09-01"), DateTimeKind.Utc), PhotoPath="student5.jpg"},
+				new Student{FirstName="Peggy",LastName="Justice",EnrollmentDate=DateTime.SpecifyKind(DateTime.Parse("2001-09-01"), DateTimeKind.Utc), PhotoPath="student6.jpg"},
+				new Student{FirstName="Laura",LastName="Norman",EnrollmentDate=DateTime.SpecifyKind(DateTime.Parse("2003-09-01"), DateTimeKind.Utc), PhotoPath="student7.jpg"},
+				new Student{FirstName="Nino",LastName="Olivetto",EnrollmentDate=DateTime.SpecifyKind(DateTime.Parse("2005-09-01"), DateTimeKind.Utc), PhotoPath="student8.jpg"}
 			};
 			foreach (Student s in students)
 			{
@@ -125,7 +125,6 @@ namespace Academy.Data
 				context.Enrollments.Add(e);
 			}
 			context.SaveChanges();
-
 
 			var officeAssignments = new OfficeAssignment[]
 			{
@@ -201,7 +200,6 @@ namespace Academy.Data
 				new Direction { DirectionId = 9, Name = ".NET Development" },
 				new Direction { DirectionId = 10, Name = "WebDev" },
 				new Direction { DirectionId = 11, Name = "AI" },
-
 			};
 
 			foreach (Direction d in directions)
@@ -231,6 +229,5 @@ namespace Academy.Data
 			}
 			context.SaveChanges();
 		}
-
 	}
 }
