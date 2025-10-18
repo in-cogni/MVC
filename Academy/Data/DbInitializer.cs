@@ -97,20 +97,20 @@ namespace Academy.Data
 			context.SaveChanges();
 
 			var departments = new Department[]
-			{
-				new Department { Name = "English", Budget = 350000,
-					StartDate = DateTime.SpecifyKind(DateTime.Parse("2007-09-01"), DateTimeKind.Utc),
-					InstructorID = instructors.Single(i => i.LastName == "Abercrombie").ID },
-				new Department { Name = "Mathematics", Budget = 100000,
-					StartDate = DateTime.SpecifyKind(DateTime.Parse("2007-09-01"), DateTimeKind.Utc),
-					InstructorID = instructors.Single(i => i.LastName == "Fakhouri").ID },
-				new Department { Name = "Engineering", Budget = 350000,
-					StartDate = DateTime.SpecifyKind(DateTime.Parse("2007-09-01"), DateTimeKind.Utc),
-					InstructorID = instructors.Single(i => i.LastName == "Harui").ID },
-				new Department { Name = "Economics", Budget = 100000,
-					StartDate = DateTime.SpecifyKind(DateTime.Parse("2007-09-01"), DateTimeKind.Utc),
-					InstructorID = instructors.Single(i => i.LastName == "Kapoor").ID }
-			};
+{
+	new Department { Name = "English", Budget = 350000,
+		StartDate = DateTime.SpecifyKind(DateTime.Parse("2007-09-01"), DateTimeKind.Utc),
+		InstructorID = instructors.Single(i => i.LastName == "Ковтун").ID },
+    new Department { Name = "Mathematics", Budget = 100000,
+		StartDate = DateTime.SpecifyKind(DateTime.Parse("2007-09-01"), DateTimeKind.Utc),
+		InstructorID = instructors.Single(i => i.LastName == "Покидюк").ID },
+    new Department { Name = "Engineering", Budget = 350000,
+		StartDate = DateTime.SpecifyKind(DateTime.Parse("2007-09-01"), DateTimeKind.Utc),
+		InstructorID = instructors.Single(i => i.LastName == "Кобылинский").ID },
+    new Department { Name = "Economics", Budget = 100000,
+		StartDate = DateTime.SpecifyKind(DateTime.Parse("2007-09-01"), DateTimeKind.Utc),
+		InstructorID = instructors.Single(i => i.LastName == "Свищев").ID } 
+};
 
 			foreach (Department d in departments)
 			{
@@ -357,17 +357,17 @@ namespace Academy.Data
 			context.SaveChanges();
 
 			var officeAssignments = new OfficeAssignment[]
-			{
-				new OfficeAssignment {
-					InstructorID = instructors.Single(i => i.LastName == "Fakhouri").ID,
-					Location = "Smith 17" },
-				new OfficeAssignment {
-					InstructorID = instructors.Single(i => i.LastName == "Harui").ID,
-					Location = "Gowan 27" },
-				new OfficeAssignment {
-					InstructorID = instructors.Single(i => i.LastName == "Kapoor").ID,
-					Location = "Thompson 304" },
-			};
+{
+	new OfficeAssignment {
+		InstructorID = instructors.Single(i => i.LastName == "Покидюк").ID,
+        Location = "Smith 17" },
+	new OfficeAssignment {
+		InstructorID = instructors.Single(i => i.LastName == "Кобылинский").ID, 
+        Location = "Gowan 27" },
+	new OfficeAssignment {
+		InstructorID = instructors.Single(i => i.LastName == "Свищев").ID, 
+        Location = "Thompson 304" },
+};
 
 			foreach (OfficeAssignment o in officeAssignments)
 			{
@@ -376,40 +376,40 @@ namespace Academy.Data
 			context.SaveChanges();
 
 			var courseInstructors = new CourseAssignment[]
-			{
-				new CourseAssignment {
-					CourseID = courses.Single(c => c.Title == "Chemistry").CourseID,
-					InstructorID = instructors.Single(i => i.LastName == "Kapoor").ID
-				},
-				new CourseAssignment {
-					CourseID = courses.Single(c => c.Title == "Chemistry").CourseID,
-					InstructorID = instructors.Single(i => i.LastName == "Harui").ID
-				},
-				new CourseAssignment {
-					CourseID = courses.Single(c => c.Title == "Microeconomics").CourseID,
-					InstructorID = instructors.Single(i => i.LastName == "Zheng").ID
-				},
-				new CourseAssignment {
-					CourseID = courses.Single(c => c.Title == "Macroeconomics").CourseID,
-					InstructorID = instructors.Single(i => i.LastName == "Zheng").ID
-				},
-				new CourseAssignment {
-					CourseID = courses.Single(c => c.Title == "Calculus").CourseID,
-					InstructorID = instructors.Single(i => i.LastName == "Fakhouri").ID
-				},
-				new CourseAssignment {
-					CourseID = courses.Single(c => c.Title == "Trigonometry").CourseID,
-					InstructorID = instructors.Single(i => i.LastName == "Harui").ID
-				},
-				new CourseAssignment {
-					CourseID = courses.Single(c => c.Title == "Composition").CourseID,
-					InstructorID = instructors.Single(i => i.LastName == "Abercrombie").ID
-				},
-				new CourseAssignment {
-					CourseID = courses.Single(c => c.Title == "Literature").CourseID,
-					InstructorID = instructors.Single(i => i.LastName == "Abercrombie").ID
-				},
-			};
+{
+	new CourseAssignment {
+		CourseID = courses.Single(c => c.Title == "Chemistry").CourseID,
+		InstructorID = instructors.Single(i => i.LastName == "Свищев").ID
+    },
+	new CourseAssignment {
+		CourseID = courses.Single(c => c.Title == "Chemistry").CourseID,
+		InstructorID = instructors.Single(i => i.LastName == "Кобылинский").ID 
+    },
+	new CourseAssignment {
+		CourseID = courses.Single(c => c.Title == "Microeconomics").CourseID,
+		InstructorID = instructors.Single(i => i.LastName == "Лялька").ID 
+    },
+	new CourseAssignment {
+		CourseID = courses.Single(c => c.Title == "Macroeconomics").CourseID,
+		InstructorID = instructors.Single(i => i.LastName == "Лялька").ID
+    },
+	new CourseAssignment {
+		CourseID = courses.Single(c => c.Title == "Calculus").CourseID,
+		InstructorID = instructors.Single(i => i.LastName == "Покидюк").ID 
+    },
+	new CourseAssignment {
+		CourseID = courses.Single(c => c.Title == "Trigonometry").CourseID,
+		InstructorID = instructors.Single(i => i.LastName == "Кобылинский").ID
+    },
+	new CourseAssignment {
+		CourseID = courses.Single(c => c.Title == "Composition").CourseID,
+		InstructorID = instructors.Single(i => i.LastName == "Ковтун").ID 
+    },
+	new CourseAssignment {
+		CourseID = courses.Single(c => c.Title == "Literature").CourseID,
+		InstructorID = instructors.Single(i => i.LastName == "Ковтун").ID 
+    },
+};
 
 			foreach (CourseAssignment ci in courseInstructors)
 			{
