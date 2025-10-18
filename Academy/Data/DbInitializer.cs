@@ -1,4 +1,5 @@
 ﻿using Academy.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace Academy.Data
 {
@@ -7,29 +8,13 @@ namespace Academy.Data
 		public static void Initialize(UniversityContext context)
 		{
 			context.Database.EnsureCreated();
-
-			// Look for any students.
-			if (context.Instructors.Any())
-			{
-				return;   // DB has been seeded
-			}
-
-			var students = new Student[]
-			{
-				new Student{FirstName="Carson",LastName="Alexander",EnrollmentDate=DateTime.Parse("2005-09-01"), PhotoPath="student1.jpg"},
-				new Student{FirstName="Meredith",LastName="Alonso",EnrollmentDate=DateTime.Parse("2002-09-01"), PhotoPath="student2.jpg"},
-				new Student{FirstName="Arturo",LastName="Anand",EnrollmentDate=DateTime.Parse("2003-09-01"), PhotoPath="student3.jpg"},
-				new Student{FirstName="Gytis",LastName="Barzdukas",EnrollmentDate=DateTime.Parse("2002-09-01"), PhotoPath="student4.jpg"},
-				new Student{FirstName="Yan",LastName="Li",EnrollmentDate=DateTime.Parse("2002-09-01"), PhotoPath="student5.jpg"},
-				new Student{FirstName="Peggy",LastName="Justice",EnrollmentDate=DateTime.Parse("2001-09-01"), PhotoPath="student6.jpg"},
-				new Student{FirstName="Laura",LastName="Norman",EnrollmentDate=DateTime.Parse("2003-09-01"), PhotoPath="student7.jpg"},
-				new Student{FirstName="Nino",LastName="Olivetto",EnrollmentDate=DateTime.Parse("2005-09-01"), PhotoPath="student8.jpg"}
-			};
-			foreach (Student s in students)
-			{
-				context.Students.Add(s);
-			}
-			context.SaveChanges();
+			context.Database.ExecuteSqlRaw("DELETE FROM \"CourseAssignments\"");
+			context.Database.ExecuteSqlRaw("DELETE FROM \"Enrollments\"");
+			context.Database.ExecuteSqlRaw("DELETE FROM \"OfficeAssignments\"");
+			context.Database.ExecuteSqlRaw("DELETE FROM \"Courses\"");
+			context.Database.ExecuteSqlRaw("DELETE FROM \"Departments\"");
+			context.Database.ExecuteSqlRaw("DELETE FROM \"Instructors\"");
+			context.Database.ExecuteSqlRaw("DELETE FROM \"Students\"");
 
 			var instructors = new Instructor[]
 			{
@@ -70,6 +55,23 @@ namespace Academy.Data
 			foreach (Department d in departments)
 			{
 				context.Departments.Add(d);
+			}
+			context.SaveChanges();
+
+			var students = new Student[]
+			{
+				new Student{FirstName="Carson",LastName="Alexander",EnrollmentDate=DateTime.Parse("2005-09-01"), PhotoPath="student1.jpg"},
+				new Student{FirstName="Meredith",LastName="Alonso",EnrollmentDate=DateTime.Parse("2002-09-01"), PhotoPath="student2.jpg"},
+				new Student{FirstName="Arturo",LastName="Anand",EnrollmentDate=DateTime.Parse("2003-09-01"), PhotoPath="student3.jpg"},
+				new Student{FirstName="Gytis",LastName="Barzdukas",EnrollmentDate=DateTime.Parse("2002-09-01"), PhotoPath="student4.jpg"},
+				new Student{FirstName="Yan",LastName="Li",EnrollmentDate=DateTime.Parse("2002-09-01"), PhotoPath="student5.jpg"},
+				new Student{FirstName="Peggy",LastName="Justice",EnrollmentDate=DateTime.Parse("2001-09-01"), PhotoPath="student6.jpg"},
+				new Student{FirstName="Laura",LastName="Norman",EnrollmentDate=DateTime.Parse("2003-09-01"), PhotoPath="student7.jpg"},
+				new Student{FirstName="Nino",LastName="Olivetto",EnrollmentDate=DateTime.Parse("2005-09-01"), PhotoPath="student8.jpg"}
+			};
+			foreach (Student s in students)
+			{
+				context.Students.Add(s);
 			}
 			context.SaveChanges();
 

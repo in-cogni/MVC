@@ -8,15 +8,15 @@ WORKDIR /src
 
 COPY . .
 
-RUN dotnet restore "ContosoUniversityHW/ContosoUniversityHW.csproj"
+RUN dotnet restore "Academy/Academy.csproj"
 
-WORKDIR "/src/ContosoUniversityHW"
-RUN dotnet build "ContosoUniversityHW.csproj" -c Release -o /app/build
+WORKDIR "/src/Academy"
+RUN dotnet build "Academy.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "ContosoUniversityHW.csproj" -c Release -o /app/publish
+RUN dotnet publish "Academy.csproj" -c Release -o /app/publish
 
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "ContosoUniversityHW.dll"]
+ENTRYPOINT ["dotnet", "Academy.dll"]
