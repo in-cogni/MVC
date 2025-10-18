@@ -7,7 +7,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Academy.Migrations
 {
     /// <inheritdoc />
-    public partial class AddPhotoPathToStudent : Migration
+    public partial class postgresql_migration_559 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

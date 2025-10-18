@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Academy.Migrations
 {
     [DbContext(typeof(UniversityContext))]
-    [Migration("20251018155410_AddPhotoPathToStudent")]
-    partial class AddPhotoPathToStudent
+    [Migration("20251018160110_postgresql_migration_559")]
+    partial class postgresql_migration_559
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
