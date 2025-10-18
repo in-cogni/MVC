@@ -10,6 +10,38 @@ namespace Academy.Data
 			try
 			{
 				context.Database.ExecuteSqlRaw(@"
+            CREATE TABLE IF NOT EXISTS ""Directions"" (
+                ""DirectionId"" SMALLSERIAL PRIMARY KEY,
+                ""Name"" VARCHAR(50) NOT NULL
+            );
+        ");
+			}
+			catch (Exception ex)
+			{
+				Console.WriteLine($"Note: Directions table may already exist: {ex.Message}");
+			}
+
+			try
+			{
+				context.Database.ExecuteSqlRaw(@"
+            CREATE TABLE IF NOT EXISTS ""Groups"" (
+                ""GroupId"" SERIAL PRIMARY KEY,
+                ""GroupName"" VARCHAR(10) NOT NULL,
+                ""DirectionId"" SMALLINT NULL,
+                ""WeekDays"" SMALLINT NULL,
+                ""StartTime"" TIME NULL,
+                CONSTRAINT ""FK_Groups_Directions_DirectionId"" FOREIGN KEY (""DirectionId"") REFERENCES ""Directions"" (""DirectionId"") ON DELETE SET NULL
+            );
+        ");
+			}
+			catch (Exception ex)
+			{
+				Console.WriteLine($"Note: Groups table may already exist: {ex.Message}");
+			}
+
+			try
+			{
+				context.Database.ExecuteSqlRaw(@"
             DO $$ 
             BEGIN 
                 IF NOT EXISTS (
