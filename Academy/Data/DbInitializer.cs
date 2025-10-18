@@ -72,16 +72,22 @@ namespace Academy.Data
 
 			var instructors = new Instructor[]
 			{
-				new Instructor { FirstName = "Kim", LastName = "Abercrombie",
-					HireDate = DateTime.SpecifyKind(DateTime.Parse("1995-03-11"), DateTimeKind.Utc) },
-				new Instructor { FirstName = "Fadi", LastName = "Fakhouri",
-					HireDate = DateTime.SpecifyKind(DateTime.Parse("2002-07-06"), DateTimeKind.Utc) },
-				new Instructor { FirstName = "Roger", LastName = "Harui",
-					HireDate = DateTime.SpecifyKind(DateTime.Parse("1998-07-01"), DateTimeKind.Utc) },
-				new Instructor { FirstName = "Candace", LastName = "Kapoor",
-					HireDate = DateTime.SpecifyKind(DateTime.Parse("2001-01-15"), DateTimeKind.Utc) },
-				new Instructor { FirstName = "Roger", LastName = "Zheng",
-					HireDate = DateTime.SpecifyKind(DateTime.Parse("2004-02-12"), DateTimeKind.Utc) }
+				new Instructor { FirstName = "Олег", LastName = "Ковтун",
+					HireDate = DateTime.SpecifyKind(DateTime.Parse("2009-04-04"), DateTimeKind.Utc) },
+				new Instructor { FirstName = "Марина", LastName = "Покидюк",
+					HireDate = DateTime.SpecifyKind(DateTime.Parse("2022-07-07"), DateTimeKind.Utc) },
+				new Instructor { FirstName = "Андрей", LastName = "Кобылинский",
+					HireDate = DateTime.SpecifyKind(DateTime.Parse("2003-09-01"), DateTimeKind.Utc) },
+				new Instructor { FirstName = "Алексей", LastName = "Свищев",
+					HireDate = DateTime.SpecifyKind(DateTime.Parse("2013-09-01"), DateTimeKind.Utc) },
+				new Instructor { FirstName = "Александр", LastName = "Лялька",
+					HireDate = DateTime.SpecifyKind(DateTime.Parse("2008-09-25"), DateTimeKind.Utc) },
+				new Instructor { FirstName = "Елена", LastName = "Хлапонина",
+					HireDate = DateTime.SpecifyKind(DateTime.Parse("2008-10-25"), DateTimeKind.Utc) },
+				new Instructor { FirstName = "Антон", LastName = "Глазунов",
+					HireDate = DateTime.SpecifyKind(DateTime.Parse("2022-02-01"), DateTimeKind.Utc) },
+				new Instructor { FirstName = "Александр", LastName = "Твердохлеб",
+					HireDate = DateTime.SpecifyKind(DateTime.Parse("2007-10-10"), DateTimeKind.Utc) }
 			};
 
 			foreach (Instructor i in instructors)
@@ -135,16 +141,138 @@ namespace Academy.Data
 			context.SaveChanges();
 
 			var students = new Student[]
-			{
-				new Student{FirstName="Carson",LastName="Alexander",EnrollmentDate=DateTime.SpecifyKind(DateTime.Parse("2005-09-01"), DateTimeKind.Utc), PhotoPath="student1.jpg"},
-				new Student{FirstName="Meredith",LastName="Alonso",EnrollmentDate=DateTime.SpecifyKind(DateTime.Parse("2002-09-01"), DateTimeKind.Utc), PhotoPath="student2.jpg"},
-				new Student{FirstName="Arturo",LastName="Anand",EnrollmentDate=DateTime.SpecifyKind(DateTime.Parse("2003-09-01"), DateTimeKind.Utc), PhotoPath="student3.jpg"},
-				new Student{FirstName="Gytis",LastName="Barzdukas",EnrollmentDate=DateTime.SpecifyKind(DateTime.Parse("2002-09-01"), DateTimeKind.Utc), PhotoPath="student4.jpg"},
-				new Student{FirstName="Yan",LastName="Li",EnrollmentDate=DateTime.SpecifyKind(DateTime.Parse("2002-09-01"), DateTimeKind.Utc), PhotoPath="student5.jpg"},
-				new Student{FirstName="Peggy",LastName="Justice",EnrollmentDate=DateTime.SpecifyKind(DateTime.Parse("2001-09-01"), DateTimeKind.Utc), PhotoPath="student6.jpg"},
-				new Student{FirstName="Laura",LastName="Norman",EnrollmentDate=DateTime.SpecifyKind(DateTime.Parse("2003-09-01"), DateTimeKind.Utc), PhotoPath="student7.jpg"},
-				new Student{FirstName="Nino",LastName="Olivetto",EnrollmentDate=DateTime.SpecifyKind(DateTime.Parse("2005-09-01"), DateTimeKind.Utc), PhotoPath="student8.jpg"}
-			};
+{
+	new Student{
+		FirstName="Никита", LastName="Сивков",
+		EnrollmentDate=DateTime.SpecifyKind(DateTime.Parse("2005-09-01"), DateTimeKind.Utc),
+		PhotoPath="student1.jpg"
+	},
+	new Student{
+		FirstName="Мария", LastName="Тарлавина",
+		EnrollmentDate=DateTime.SpecifyKind(DateTime.Parse("2002-09-01"), DateTimeKind.Utc),
+		PhotoPath="student2.jpg"
+	},
+	new Student{
+		FirstName="Александр", LastName="Ким",
+		EnrollmentDate=DateTime.SpecifyKind(DateTime.Parse("2003-09-01"), DateTimeKind.Utc),
+		PhotoPath="student3.jpg"
+	},
+	new Student{
+		FirstName="Кирилл", LastName="Колпаков",
+		EnrollmentDate=DateTime.SpecifyKind(DateTime.Parse("2007-09-01"), DateTimeKind.Utc),
+		PhotoPath="student4.jpg"
+	},
+	new Student{
+		FirstName="Евгений", LastName="Долженков",
+		EnrollmentDate=DateTime.SpecifyKind(DateTime.Parse("2004-09-01"), DateTimeKind.Utc),
+		PhotoPath="student5.jpg"
+	},
+	new Student{
+		FirstName="Павел", LastName="Третьяков",
+		EnrollmentDate=DateTime.SpecifyKind(DateTime.Parse("2000-09-01"), DateTimeKind.Utc),
+		PhotoPath="student6.jpg"
+	},
+	new Student{
+		FirstName="Михаил", LastName="Шеркунов",
+		EnrollmentDate=DateTime.SpecifyKind(DateTime.Parse("1996-09-01"), DateTimeKind.Utc),
+		PhotoPath="student7.jpg"
+	},
+	new Student{
+		FirstName="Александр", LastName="Архипов",
+		EnrollmentDate=DateTime.SpecifyKind(DateTime.Parse("1991-09-01"), DateTimeKind.Utc),
+		PhotoPath="student8.jpg"
+	},
+	new Student{
+		FirstName="Сергей", LastName="Епягин",
+		EnrollmentDate=DateTime.SpecifyKind(DateTime.Parse("1996-09-01"), DateTimeKind.Utc),
+		PhotoPath="student1.jpg"
+	},
+	new Student{
+		FirstName="Иван", LastName="Путинцев",
+		EnrollmentDate=DateTime.SpecifyKind(DateTime.Parse("1990-09-01"), DateTimeKind.Utc),
+		PhotoPath="student2.jpg"
+	},
+	new Student{
+		FirstName="Роман", LastName="Сутугин",
+		EnrollmentDate=DateTime.SpecifyKind(DateTime.Parse("1996-09-01"), DateTimeKind.Utc),
+		PhotoPath="student3.jpg"
+	},
+	new Student{
+		FirstName="Артем", LastName="Фурсов",
+		EnrollmentDate=DateTime.SpecifyKind(DateTime.Parse("1999-09-01"), DateTimeKind.Utc),
+		PhotoPath="student4.jpg"
+	},
+	new Student{
+		FirstName="Кирсан", LastName="Терешкин",
+		EnrollmentDate=DateTime.SpecifyKind(DateTime.Parse("2007-09-01"), DateTimeKind.Utc),
+		PhotoPath="student5.jpg"
+	},
+	new Student{
+		FirstName="Артем", LastName="Васильев",
+		EnrollmentDate=DateTime.SpecifyKind(DateTime.Parse("1999-09-01"), DateTimeKind.Utc),
+		PhotoPath="student6.jpg"
+	},
+	new Student{
+		FirstName="Евгений", LastName="Тихомиров",
+		EnrollmentDate=DateTime.SpecifyKind(DateTime.Parse("1986-09-01"), DateTimeKind.Utc),
+		PhotoPath="student7.jpg"
+	},
+	new Student{
+		FirstName="Илья", LastName="Шадько",
+		EnrollmentDate=DateTime.SpecifyKind(DateTime.Parse("2007-09-01"), DateTimeKind.Utc),
+		PhotoPath="student8.jpg"
+	},
+	new Student{
+		FirstName="Андрей", LastName="Шмидт",
+		EnrollmentDate=DateTime.SpecifyKind(DateTime.Parse("2007-09-01"), DateTimeKind.Utc),
+		PhotoPath="student1.jpg"
+	},
+	new Student{
+		FirstName="Ярослав", LastName="Шуников",
+		EnrollmentDate=DateTime.SpecifyKind(DateTime.Parse("2001-09-01"), DateTimeKind.Utc),
+		PhotoPath="student2.jpg"
+	},
+	new Student{
+		FirstName="Олеся", LastName="Волкова",
+		EnrollmentDate=DateTime.SpecifyKind(DateTime.Parse("1985-09-01"), DateTimeKind.Utc),
+		PhotoPath="student3.jpg"
+	},
+	new Student{
+		FirstName="Арамис", LastName="Григорян",
+		EnrollmentDate=DateTime.SpecifyKind(DateTime.Parse("1995-09-01"), DateTimeKind.Utc),
+		PhotoPath="student4.jpg"
+	},
+	new Student{
+		FirstName="Сергей", LastName="Клочко",
+		EnrollmentDate=DateTime.SpecifyKind(DateTime.Parse("1984-09-01"), DateTimeKind.Utc),
+		PhotoPath="student5.jpg"
+	},
+	new Student{
+		FirstName="Сергей", LastName="Корнюшин",
+		EnrollmentDate=DateTime.SpecifyKind(DateTime.Parse("1981-09-01"), DateTimeKind.Utc),
+		PhotoPath="student6.jpg"
+	},
+	new Student{
+		FirstName="Дмитрий", LastName="Моисеев",
+		EnrollmentDate=DateTime.SpecifyKind(DateTime.Parse("2001-09-01"), DateTimeKind.Utc),
+		PhotoPath="student7.jpg"
+	},
+	new Student{
+		FirstName="Андрей", LastName="Пластинин",
+		EnrollmentDate=DateTime.SpecifyKind(DateTime.Parse("1979-09-01"), DateTimeKind.Utc),
+		PhotoPath="student8.jpg"
+	},
+	new Student{
+		FirstName="Станислав", LastName="Терещенков",
+		EnrollmentDate=DateTime.SpecifyKind(DateTime.Parse("1985-09-01"), DateTimeKind.Utc),
+		PhotoPath="student1.jpg"
+	},
+	new Student{
+		FirstName="Алексей", LastName="Хорев",
+		EnrollmentDate=DateTime.SpecifyKind(DateTime.Parse("1977-09-01"), DateTimeKind.Utc),
+		PhotoPath="student2.jpg"
+	}
+};
 
 			foreach (Student s in students)
 			{
