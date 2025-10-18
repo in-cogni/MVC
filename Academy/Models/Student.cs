@@ -25,8 +25,11 @@ namespace Academy.Models
 		[DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
 		public DateTime EnrollmentDate { get; set; }//Дата поступления
 
+		[DisplayName("Фото")]
+		public string PhotoPath { get; set; }
+
 		//Calculated properties:
-		[DisplayName("Студунт")]
+		[DisplayName("Студент")]
 		public string FullName { get => $"{LastName} {FirstName}"; }
 
 		//////////////////////////////////////////////////////////////////

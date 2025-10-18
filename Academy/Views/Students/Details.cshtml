@@ -10,23 +10,53 @@
     <h4>Student</h4>
     <hr />
     <dl class="row">
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
+            Фото
+        </dt>
+        <dd class="col-sm-10">
+            @if (!string.IsNullOrEmpty(Model.PhotoPath))
+            {
+                <img src="~/images/students/@Model.PhotoPath"
+                     class="img-thumbnail"
+                     width="200"
+                     height="200"
+                     alt="Фото @Model.FullName"
+                     style="object-fit: cover;" />
+            }
+            else
+            {
+                <img src="~/images/students/default.jpg"
+                     class="img-thumbnail"
+                     width="200"
+                     height="200"
+                     alt="Фото по умолчанию"
+                     style="object-fit: cover;" />
+                <div class="text-muted mt-1">Фото не загружено</div>
+            }
+        </dd>
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.LastName)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.LastName)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.FirstName)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.FirstName)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.EnrollmentDate)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.EnrollmentDate)
+        </dd>
+        <dt class="col-sm-2">
+            Полное имя
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.FullName)
         </dd>
     </dl>
 </div>

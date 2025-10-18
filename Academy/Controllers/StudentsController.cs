@@ -10,14 +10,16 @@ using Academy.Models;
 
 namespace Academy.Views
 {
-    public class StudentsController : Controller
-    {
-        private readonly UniversityContext _context;
+	public class StudentsController : Controller
+	{
+		private readonly UniversityContext _context;
+		private readonly IWebHostEnvironment _environment;
 
-        public StudentsController(UniversityContext context)
-        {
-            _context = context;
-        }
+		public StudentsController(UniversityContext context, IWebHostEnvironment environment)
+		{
+			_context = context;
+			_environment = environment;
+		}
 
 		// GET: Students
 		public async Task<IActionResult> Index(string sortOrder, string currentFilter, string searchString, int? pageNumber)
@@ -54,136 +56,182 @@ namespace Academy.Views
 
 			int pageSize = 3;
 			return View(await PaginatedList<Student>.CreateAsync(students.AsNoTracking(), pageNumber ?? 1, pageSize));
-			//return View(await students.AsNoTracking().ToListAsync());
 		}
 
 		// GET: Students/Details/5
 		public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
+		{
+			if (id == null)
+			{
+				return NotFound();
+			}
 
-            var student = await _context.Students
-                .FirstOrDefaultAsync(m => m.ID == id);
-            if (student == null)
-            {
-                return NotFound();
-            }
+			var student = await _context.Students
+				.FirstOrDefaultAsync(m => m.ID == id);
+			if (student == null)
+			{
+				return NotFound();
+			}
 
-            return View(student);
-        }
+			return View(student);
+		}
 
-        // GET: Students/Create
-        public IActionResult Create()
-        {
-            return View();
-        }
+		// GET: Students/Create
+		public IActionResult Create()
+		{
+			return View();
+		}
 
-        // POST: Students/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,LastName,FirstName,EnrollmentDate")] Student student)
-        {
-            if (ModelState.IsValid)
-            {
-                _context.Add(student);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            return View(student);
-        }
+		// POST: Students/Create
+		[HttpPost]
+		[ValidateAntiForgeryToken]
+		public async Task<IActionResult> Create([Bind("ID,LastName,FirstName,EnrollmentDate")] Student student, IFormFile photo)
+		{
+			if (ModelState.IsValid)
+			{
+				if (photo != null && photo.Length > 0)
+				{
+					var fileName = await SavePhoto(photo);
+					student.PhotoPath = fileName;
+				}
 
-        // GET: Students/Edit/5
-        public async Task<IActionResult> Edit(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
+				_context.Add(student);
+				await _context.SaveChangesAsync();
+				return RedirectToAction(nameof(Index));
+			}
+			return View(student);
+		}
 
-            var student = await _context.Students.FindAsync(id);
-            if (student == null)
-            {
-                return NotFound();
-            }
-            return View(student);
-        }
+		// GET: Students/Edit/5
+		public async Task<IActionResult> Edit(int? id)
+		{
+			if (id == null)
+			{
+				return NotFound();
+			}
 
-        // POST: Students/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,LastName,FirstName,EnrollmentDate")] Student student)
-        {
-            if (id != student.ID)
-            {
-                return NotFound();
-            }
+			var student = await _context.Students.FindAsync(id);
+			if (student == null)
+			{
+				return NotFound();
+			}
+			return View(student);
+		}
 
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(student);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!StudentExists(student.ID))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
-            return View(student);
-        }
+		// POST: Students/Edit/5
+		[HttpPost]
+		[ValidateAntiForgeryToken]
+		public async Task<IActionResult> Edit(int id, [Bind("ID,LastName,FirstName,EnrollmentDate,PhotoPath")] Student student, IFormFile photo)
+		{
+			if (id != student.ID)
+			{
+				return NotFound();
+			}
 
-        // GET: Students/Delete/5
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
+			if (ModelState.IsValid)
+			{
+				try
+				{
+					if (photo != null && photo.Length > 0)
+					{
+						if (!string.IsNullOrEmpty(student.PhotoPath))
+						{
+							DeletePhoto(student.PhotoPath);
+						}
 
-            var student = await _context.Students
-                .FirstOrDefaultAsync(m => m.ID == id);
-            if (student == null)
-            {
-                return NotFound();
-            }
+						var fileName = await SavePhoto(photo);
+						student.PhotoPath = fileName;
+					}
 
-            return View(student);
-        }
+					_context.Update(student);
+					await _context.SaveChangesAsync();
+				}
+				catch (DbUpdateConcurrencyException)
+				{
+					if (!StudentExists(student.ID))
+					{
+						return NotFound();
+					}
+					else
+					{
+						throw;
+					}
+				}
+				return RedirectToAction(nameof(Index));
+			}
+			return View(student);
+		}
 
-        // POST: Students/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            var student = await _context.Students.FindAsync(id);
-            if (student != null)
-            {
-                _context.Students.Remove(student);
-            }
+		// GET: Students/Delete/5
+		public async Task<IActionResult> Delete(int? id)
+		{
+			if (id == null)
+			{
+				return NotFound();
+			}
 
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-        }
+			var student = await _context.Students
+				.FirstOrDefaultAsync(m => m.ID == id);
+			if (student == null)
+			{
+				return NotFound();
+			}
 
-        private bool StudentExists(int id)
-        {
-            return _context.Students.Any(e => e.ID == id);
-        }
-    }
+			return View(student);
+		}
+
+		// POST: Students/Delete/5
+		[HttpPost, ActionName("Delete")]
+		[ValidateAntiForgeryToken]
+		public async Task<IActionResult> DeleteConfirmed(int id)
+		{
+			var student = await _context.Students.FindAsync(id);
+			if (student != null)
+			{
+				// Удаляем фото при удалении студента
+				if (!string.IsNullOrEmpty(student.PhotoPath))
+				{
+					DeletePhoto(student.PhotoPath);
+				}
+
+				_context.Students.Remove(student);
+			}
+
+			await _context.SaveChangesAsync();
+			return RedirectToAction(nameof(Index));
+		}
+
+		private bool StudentExists(int id)
+		{
+			return _context.Students.Any(e => e.ID == id);
+		}
+
+		private async Task<string> SavePhoto(IFormFile photo)
+		{
+			var uploadsFolder = Path.Combine(_environment.WebRootPath, "images", "students");
+			if (!Directory.Exists(uploadsFolder))
+			{
+				Directory.CreateDirectory(uploadsFolder);
+			}
+
+			var fileName = Guid.NewGuid().ToString() + Path.GetExtension(photo.FileName);
+			var filePath = Path.Combine(uploadsFolder, fileName);
+
+			using (var stream = new FileStream(filePath, FileMode.Create))
+			{
+				await photo.CopyToAsync(stream);
+			}
+
+			return fileName;
+		}
+
+		private void DeletePhoto(string photoPath)
+		{
+			var filePath = Path.Combine(_environment.WebRootPath, "images", "students", photoPath);
+			if (System.IO.File.Exists(filePath))
+			{
+				System.IO.File.Delete(filePath);
+			}
+		}
+	}
 }
