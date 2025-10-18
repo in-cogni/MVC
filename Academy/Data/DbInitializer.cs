@@ -111,18 +111,18 @@ namespace Academy.Data
 
 			var enrollments = new Enrollment[]
 			{
-				new Enrollment{StudentID=1,CourseID=1050,Grade=Grade.A},
-				new Enrollment{StudentID=1,CourseID=4022,Grade=Grade.C},
-				new Enrollment{StudentID=1,CourseID=4041,Grade=Grade.B},
-				new Enrollment{StudentID=2,CourseID=1045,Grade=Grade.B},
-				new Enrollment{StudentID=2,CourseID=3141,Grade=Grade.F},
-				new Enrollment{StudentID=2,CourseID=2021,Grade=Grade.F},
-				new Enrollment{StudentID=3,CourseID=1050},
-				new Enrollment{StudentID=4,CourseID=1050},
-				new Enrollment{StudentID=4,CourseID=4022,Grade=Grade.F},
-				new Enrollment{StudentID=5,CourseID=4041,Grade=Grade.C},
-				new Enrollment{StudentID=6,CourseID=1045},
-				new Enrollment{StudentID=7,CourseID=3141,Grade=Grade.A},
+	new Enrollment{StudentID=savedStudents[0].ID, CourseID=1050, Grade=Grade.A},
+	new Enrollment{StudentID=savedStudents[0].ID, CourseID=4022, Grade=Grade.C},
+	new Enrollment{StudentID=savedStudents[0].ID, CourseID=4041, Grade=Grade.B},
+	new Enrollment{StudentID=savedStudents[1].ID, CourseID=1045, Grade=Grade.B},
+	new Enrollment{StudentID=savedStudents[1].ID, CourseID=3141, Grade=Grade.F},
+	new Enrollment{StudentID=savedStudents[1].ID, CourseID=2021, Grade=Grade.F},
+	new Enrollment{StudentID=savedStudents[2].ID, CourseID=1050},
+	new Enrollment{StudentID=savedStudents[3].ID, CourseID=1050},
+	new Enrollment{StudentID=savedStudents[3].ID, CourseID=4022, Grade=Grade.F},
+	new Enrollment{StudentID=savedStudents[4].ID, CourseID=4041, Grade=Grade.C},
+	new Enrollment{StudentID=savedStudents[5].ID, CourseID=1045},
+	new Enrollment{StudentID=savedStudents[6].ID, CourseID=3141, Grade=Grade.A},
 			};
 
 			foreach (Enrollment e in enrollments)
