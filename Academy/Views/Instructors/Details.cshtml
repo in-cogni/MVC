@@ -30,34 +30,25 @@
             @Html.DisplayFor(model => model.HireDate)
         </dd>
     </dl>
-    <div>
-                <div>
-                    <table>
-                        <tr>
-                            @{
-                                int cnt = 0;
-                                List<AssignedCourseData> assignedCourses = (List<AssignedCourseData>)ViewData["Courses"];
-                                foreach(AssignedCourseData course in assignedCourses)
-                                {
-                                    if(cnt++ % 3 == 0)
-                                    {
-                                        @:</tr><tr>
-                                    }
-                                    @:<td>
-                                    <input type="checkbox"
-                                    id="@course.CourseID"
-                                    name="selectedCourses"
-                                    value="@course.CourseID"
-                                    @(Html.Raw(course.Assigned? "checked=\"checked\"" : "")) />
-                                    <label for="@course.CourseID">
-                                        @course.CourseID @course.Title
-                                    </label>
-                                    @:</td>
-                                }
-                                @:</tr>
-                            }
-                    </table>
-                </div>
+    <div class="form-group">
+        <label>Дисциплины:</label>
+        <details class="border rounded p-2">
+            <summary>Дисциплины</summary>
+            <div class="mt-2" style="max-height: 100px; overflow-y: auto;">
+                @foreach (AssignedCourseData course in ViewBag.Courses as List<AssignedCourseData>)
+                {
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="selectedCourses"
+                               value="@course.CourseID" id="course_@course.CourseID"
+                        @(course.Assigned ? "checked" : "") />
+                        <label class="form-check-label" for="course_@course.CourseID">
+                            @course.CourseID - @course.Title
+                        </label>
+                    </div>
+                }
+            </div>
+        </details>
+    </div>
 </div>
 <div>
     <a asp-action="Edit" asp-route-id="@Model?.ID">Edit</a> |
