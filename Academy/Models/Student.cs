@@ -10,13 +10,13 @@ namespace Academy.Models
 		[Required]
 		[DisplayName("Фамилия")]
 		[StringLength(24)]
-		[RegularExpression(@"^[A-Z]+[a-z]*$")]
+		[RegularExpression(@"^[A-ZА-ЯЁ]+[a-zа-яё]*$")]
 		public string LastName { get; set; }
 
 		[Required]
 		[Display(Name = "Имя")]
 		[StringLength(24)]
-		[RegularExpression(@"^[A-Z]+[a-z]*$")]
+		[RegularExpression(@"^[A-ZА-ЯЁ]+[a-zа-яё]*$")]
 		public string FirstName { get; set; }
 
 		[Required]
