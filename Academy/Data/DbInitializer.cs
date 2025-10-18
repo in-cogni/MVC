@@ -59,10 +59,12 @@ namespace Academy.Data
 			}
 
 			context.Database.EnsureCreated();
-			context.Database.EnsureCreated();
+
 			context.Database.ExecuteSqlRaw("DELETE FROM \"CourseAssignments\"");
 			context.Database.ExecuteSqlRaw("DELETE FROM \"Enrollments\"");
 			context.Database.ExecuteSqlRaw("DELETE FROM \"OfficeAssignments\"");
+			context.Database.ExecuteSqlRaw("DELETE FROM \"Groups\""); 
+			context.Database.ExecuteSqlRaw("DELETE FROM \"Directions\""); 
 			context.Database.ExecuteSqlRaw("DELETE FROM \"Courses\"");
 			context.Database.ExecuteSqlRaw("DELETE FROM \"Departments\"");
 			context.Database.ExecuteSqlRaw("DELETE FROM \"Instructors\"");
@@ -107,6 +109,28 @@ namespace Academy.Data
 			foreach (Department d in departments)
 			{
 				context.Departments.Add(d);
+			}
+			context.SaveChanges();
+
+			var directions = new Direction[]
+			{
+				new Direction { DirectionId = 1, Name = "Разработка программного обеспечения" },
+				new Direction { DirectionId = 2, Name = "Сетевые технологии и системное администрирование" },
+				new Direction { DirectionId = 3, Name = "Компьютерная графика и дизайн" },
+				new Direction { DirectionId = 4, Name = "Java development" },
+				new Direction { DirectionId = 5, Name = "C++ Development" },
+				new Direction { DirectionId = 6, Name = "Python development" },
+				new Direction { DirectionId = 7, Name = "GameDev" },
+				new Direction { DirectionId = 8, Name = "Android development" },
+				new Direction { DirectionId = 9, Name = ".NET Development" },
+				new Direction { DirectionId = 10, Name = "WebDev" },
+				new Direction { DirectionId = 11, Name = "AI" },
+
+			};
+
+			foreach (Direction d in directions)
+			{
+				context.Directions.Add(d);
 			}
 			context.SaveChanges();
 
@@ -159,22 +183,43 @@ namespace Academy.Data
 			}
 			context.SaveChanges();
 
+			var groups = new Group[]
+			{
+				new Group { GroupName = "PU_211", DirectionId = 1, WeekDays = 5, StartTime = TimeSpan.Parse("09:00:00") },
+				new Group { GroupName = "PV_211", DirectionId = 1, WeekDays = 3, StartTime = TimeSpan.Parse("10:30:00") },
+				new Group { GroupName = "PD_212", DirectionId = 1, WeekDays = 4, StartTime = TimeSpan.Parse("13:15:00") },
+				new Group { GroupName = "SU_321", DirectionId = 2, WeekDays = 5, StartTime = TimeSpan.Parse("15:00:00") },
+				new Group { GroupName = "DU_123", DirectionId = 3, WeekDays = 5, StartTime = TimeSpan.Parse("15:00:00") },
+				new Group { GroupName = "DD_311", DirectionId = 3, WeekDays = 5, StartTime = TimeSpan.Parse("15:00:00") },
+				new Group { GroupName = "PD_321", DirectionId = 1, WeekDays = 42, StartTime = TimeSpan.Parse("15:00:00") },
+				new Group { GroupName = "Java_326", DirectionId = 4, WeekDays = 10, StartTime = TimeSpan.Parse("15:00:00") },
+				new Group { GroupName = "PU_212", DirectionId = 1, WeekDays = 21, StartTime = TimeSpan.Parse("15:00:00") },
+				new Group { GroupName = "PV_212", DirectionId = 1, WeekDays = 21, StartTime = TimeSpan.Parse("15:00:00") },
+				new Group { GroupName = "PV_319", DirectionId = 1, WeekDays = 42, StartTime = TimeSpan.Parse("18:30:00") },
+			};
+
+			foreach (Group g in groups)
+			{
+				context.Groups.Add(g);
+			}
+			context.SaveChanges();
+
 			var savedStudents = context.Students.ToList();
 
 			var enrollments = new Enrollment[]
 			{
-	new Enrollment{StudentID=savedStudents[0].ID, CourseID=1050, Grade=Grade.A},
-	new Enrollment{StudentID=savedStudents[0].ID, CourseID=4022, Grade=Grade.C},
-	new Enrollment{StudentID=savedStudents[0].ID, CourseID=4041, Grade=Grade.B},
-	new Enrollment{StudentID=savedStudents[1].ID, CourseID=1045, Grade=Grade.B},
-	new Enrollment{StudentID=savedStudents[1].ID, CourseID=3141, Grade=Grade.F},
-	new Enrollment{StudentID=savedStudents[1].ID, CourseID=2021, Grade=Grade.F},
-	new Enrollment{StudentID=savedStudents[2].ID, CourseID=1050},
-	new Enrollment{StudentID=savedStudents[3].ID, CourseID=1050},
-	new Enrollment{StudentID=savedStudents[3].ID, CourseID=4022, Grade=Grade.F},
-	new Enrollment{StudentID=savedStudents[4].ID, CourseID=4041, Grade=Grade.C},
-	new Enrollment{StudentID=savedStudents[5].ID, CourseID=1045},
-	new Enrollment{StudentID=savedStudents[6].ID, CourseID=3141, Grade=Grade.A},
+				new Enrollment{StudentID=savedStudents[0].ID, CourseID=1050, Grade=Grade.A},
+				new Enrollment{StudentID=savedStudents[0].ID, CourseID=4022, Grade=Grade.C},
+				new Enrollment{StudentID=savedStudents[0].ID, CourseID=4041, Grade=Grade.B},
+				new Enrollment{StudentID=savedStudents[1].ID, CourseID=1045, Grade=Grade.B},
+				new Enrollment{StudentID=savedStudents[1].ID, CourseID=3141, Grade=Grade.F},
+				new Enrollment{StudentID=savedStudents[1].ID, CourseID=2021, Grade=Grade.F},
+				new Enrollment{StudentID=savedStudents[2].ID, CourseID=1050},
+				new Enrollment{StudentID=savedStudents[3].ID, CourseID=1050},
+				new Enrollment{StudentID=savedStudents[3].ID, CourseID=4022, Grade=Grade.F},
+				new Enrollment{StudentID=savedStudents[4].ID, CourseID=4041, Grade=Grade.C},
+				new Enrollment{StudentID=savedStudents[5].ID, CourseID=1045},
+				new Enrollment{StudentID=savedStudents[6].ID, CourseID=3141, Grade=Grade.A},
 			};
 
 			foreach (Enrollment e in enrollments)
