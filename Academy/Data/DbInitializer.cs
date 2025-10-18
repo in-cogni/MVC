@@ -107,6 +107,8 @@ namespace Academy.Data
 			}
 			context.SaveChanges();
 
+			var savedStudents = context.Students.ToList();
+
 			var enrollments = new Enrollment[]
 			{
 				new Enrollment{StudentID=1,CourseID=1050,Grade=Grade.A},
