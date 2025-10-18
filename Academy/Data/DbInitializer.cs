@@ -15,6 +15,8 @@ namespace Academy.Data
 			context.Database.ExecuteSqlRaw("DELETE FROM \"Departments\"");
 			context.Database.ExecuteSqlRaw("DELETE FROM \"Instructors\"");
 			context.Database.ExecuteSqlRaw("DELETE FROM \"Students\"");
+			context.Database.ExecuteSqlRaw("DELETE FROM \"Directions\"");
+			context.Database.ExecuteSqlRaw("DELETE FROM \"Groups\"");
 
 			var instructors = new Instructor[]
 			{
