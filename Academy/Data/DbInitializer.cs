@@ -7,6 +7,26 @@ namespace Academy.Data
 	{
 		public static void Initialize(UniversityContext context)
 		{
+			try
+			{
+				context.Database.ExecuteSqlRaw(@"
+            DO $$ 
+            BEGIN 
+                IF NOT EXISTS (
+                    SELECT 1 FROM information_schema.columns 
+                    WHERE table_name = 'Students' AND column_name = 'PhotoPath'
+                ) THEN
+                    ALTER TABLE ""Students"" ADD COLUMN ""PhotoPath"" TEXT;
+                END IF;
+            END $$;
+        ");
+			}
+			catch (Exception ex)
+			{
+				Console.WriteLine($"Error adding PhotoPath column: {ex.Message}");
+			}
+
+			context.Database.EnsureCreated();
 			context.Database.EnsureCreated();
 			context.Database.ExecuteSqlRaw("DELETE FROM \"CourseAssignments\"");
 			context.Database.ExecuteSqlRaw("DELETE FROM \"Enrollments\"");
