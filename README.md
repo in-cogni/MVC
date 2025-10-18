@@ -1,1 +1,1 @@
-https://mvc-m36w.onrender.com/Courses
+https://mvc-m36w.onrender.com
